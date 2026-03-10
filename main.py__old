@@ -13,6 +13,6 @@ def read_item(item_id: int, q: Optional[str] = None):
 
 # Extra: melhore a tipagem do código usando tipos do módulo typing onde for necessário
 
-@app.get("/soma/{a}/{b}")
+@app.get("/soma")
 def soma(a: int, b: int):
     return {"Resultado": a + b}
