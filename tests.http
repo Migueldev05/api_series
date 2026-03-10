@@ -12,3 +12,7 @@ POST {{base_url}}/ HTTP/1.1
     "descricao": "Avô e neto em altas aventuras",
     "ano_lancamento": 2013
 }
+
+### Obtenção de todas as séries 
+GET {{base_url}}/series HTTP/1.1
+Accept: application/json

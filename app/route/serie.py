@@ -13,3 +13,18 @@ async def criar_serie(dados: SeriesSchema, db: Session = Depends(get_db)):
     db.commit()
     db.refresh(nova_serie)
     return nova_serie
+
+@serie.get("/series")
+async def listar_series(db: Session = Depends(get_db)):
+    return db.query(SerieModel).all()
+
+    
+
+
+
+# Tarefa 1: Crie as rotas de atualização e deleção da API
+# Tarefa 2: Resolva todos os erros da sua aplicação
+# Tarefa 3: Resolva todos os errros das novas rotas
+# Versione
+
+#Extra: resolva o erro de importação das variáveis de ambiente detectado no módulo python-dotenv  e utilize corretamente a importação com a função load_dotenv() em seu database.py

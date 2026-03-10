@@ -1,4 +1,3 @@
-import pymysql
 from sqlalchemy import create_engine, text
 from sqlalchemy.orm import sessionmaker, declarative_base
 from os import getenv
@@ -6,16 +5,20 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-SERVER_URL = DATABASE_URL = f"mysql+pymysql://{getenv('DB_USER')}:{getenv('DB_PSWD')}@{getenv('DB_HOST')}"
+# SERVER_URL = DATABASE_URL = f"mysql+pymysql://{getenv('DB_USER')}:{getenv('DB_PSWD')}@{getenv('DB_HOST')}"
+
+
+SERVER_URL= "mysql+pymysql://root:admin@localhost"
 
 engine_server = create_engine(SERVER_URL)
 
 with engine_server.connect() as conn:
-    conn.execute(text(f"CREATE TABLE IF NOT EXISTS {getenv('DB_NAME')}"))
+    conn.execute(text(f"CREATE DATABASE IF NOT EXISTS series_api"))
     conn.commit()
 
-
-DATABASE_URL = f"mysql+pymysql://{getenv('DB_USER')}:{getenv('DB_PSWD')}@{getenv('DB_HOST')}/{getenv('DB_NAME')}"
+# Conexão do banco já criado
+# DATABASE_URL = f"mysql+pymysql://{getenv('DB_USER')}:{getenv('DB_PSWD')}@{getenv('DB_HOST')}/{getenv('DB_NAME')}"
+DATABASE_URL = "mysql+pymysql://root:admin@localhost/series_api"
 
 # Criandon um "motor que fará o gerenciamento da conexão"
 engine = create_engine(DATABASE_URL)
