@@ -1,4 +1,5 @@
 from fastapi import APIRouter, Depends, HTTPException, status
+from httpx import delete
 from sqlalchemy.orm import Session
 from app.database import get_db
 from app.model.serie import SerieModel
@@ -18,7 +19,19 @@ async def criar_serie(dados: SeriesSchema, db: Session = Depends(get_db)):
 async def listar_series(db: Session = Depends(get_db)):
     return db.query(SerieModel).all()
 
-    
+@serie.delete("/delete/{id}")
+async def deletar_serie(id: int, db: Session = Depends(get_db)):
+    serie = db.query(SerieModel).filter(SerieModel.id == id).first()
+
+    if not serie:
+        raise HTTPException(status_code=404, detail="Série não encontrada")
+
+    db.delete(serie)
+    db.commit()
+
+    return {"mensagem": "Sua série foi deletada"}
+
+
 
 
 

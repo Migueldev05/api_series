@@ -12,3 +12,4 @@ app.include_router(serie)
 @app.get("/")
 async def health_check():
     return {"status": "API Online"}
+
