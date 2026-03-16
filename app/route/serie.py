@@ -3,7 +3,7 @@ from httpx import delete
 from sqlalchemy.orm import Session
 from app.database import get_db
 from app.model.serie import SerieModel
-from app.schema.serie import SeriesSchema
+from app.schema.serie import SerieSchema
 
 serie = APIRouter()
 
@@ -29,9 +29,7 @@ async def deletar_serie(id: int, db: Session = Depends(get_db)):
     db.delete(serie)
     db.commit()
 
-    return {"mensagem": "Sua série foi deletada"}
-
-
+    return {"mensagem": "Sua serie foi deletada"}
 
 
 
