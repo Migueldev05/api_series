@@ -18,6 +18,7 @@ async def criar_serie(dados: SerieSchema, db: Session = Depends(get_db)):
 async def listar_series(db: Session = Depends(get_db)):
     return db.query(SerieModel).all()
 
+# Rota de deletar API
 @serie.delete("/series/{id}")
 async def deletar_serie(id: int, db: Session = Depends(get_db)):
     serie = db.query(SerieModel).filter(SerieModel.id == id).first()
@@ -30,10 +31,23 @@ async def deletar_serie(id: int, db: Session = Depends(get_db)):
 
     return {"mensagem": "Sua série foi deletada"}
 
-# Tarefa 1: Crie as rotas de atualização e deleção da API
-# Tarefa 2: Resolva todos os erros da sua aplicação
-# Tarefa 3: Resolva todos os erros das novas rotas
-# Versione
+# Rota de atualizar API
+@serie.put("/atualizar/{id}")
+async def atualizar_serie(id: int, dados: SerieSchema, db: Session = Depends(get_db)):
+    serie = db.query(SerieModel).filter(SerieModel.id == id).first()
+
+    for campo, valor in dados.model_dump().items():
+        setattr(serie, campo, valor)
+        
+    db.commit()
+    db.refresh(serie)
+
+    return serie
+
+# Tarefa 1: Crie as rotas de atualização e deleção da API ✓
+# Tarefa 2: Resolva todos os erros da sua aplicação ✓
+# Tarefa 3: Resolva todos os erros das novas rotas ✓
+# Versione 
 
 # Extra: resolva o erro de importação das variáveis de ambiente
 #  detectado no módulo python-dotenv  e utilize corretamente

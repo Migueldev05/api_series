@@ -25,6 +25,16 @@ PUT {{base_url}}/ HTTP.1.1
 Content-Type: 
 
 {
+    "titulo": "Smiling Friends",
+    "descricao": "Empresa que visa fazer todos sorrirem",
+    "ano_lancamento": 2022
+}
+
+### Tentativa de update de série inexistente
+PUT {{base_url}}/serie/99
+Content-Type: 
+
+{
     "titulo": "Breaking Bad",
     "descricao": "Professor de Química que passa a vender drogas após descobrir um câncer",
     "ano_lancamento": 2008
